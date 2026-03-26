@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run dev)",
+      "Bash(bun run build)",
+      "Bash(bun run typecheck)",
+      "Bash(bun run check)",
+      "Bash(bun run fix)",
+      "Bash(bun run fix:unsafe)",
+      "Bash(bun run db:generate)",
+      "Bash(bun run db:migrate)",
+      "Bash(bun run db:start)",
+      "Bash(bun run db:stop)",
+      "Bash(bun run db:studio)",
+      "Bash(git *)",
+      "Bash(npx shadcn@latest add *)",
+      "Bash(bunx drizzle-kit *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:bun.com)",
+      "mcp__context7__*",
+      "mcp__shadcn__*",
+      "mcp__next-devtools__*",
+      "mcp__better-auth__*",
+      "mcp__Neon__*"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

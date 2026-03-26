@@ -1,0 +1,6 @@
+{
+  "buildCommand": "drizzle-kit migrate && next build",
+  "framework": "nextjs",
+  "regions": ["fra1"],
+  "bunVersion": "1"
+}
