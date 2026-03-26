@@ -1,15 +1,27 @@
+const isProd = process.env.NODE_ENV === "production";
+
+function format(props: { level: string; tag: string; msg: string; data?: unknown }) {
+  if (isProd) {
+    return JSON.stringify({ ...props, timestamp: new Date().toISOString() });
+  }
+  return `[${props.tag}] ${props.msg}`;
+}
+
 export function createLogger(prefix?: string) {
   const tag = prefix ?? "app";
 
   return {
     info(msg: string, data?: Record<string, unknown>) {
-      console.log(`[${tag}]`, msg, data ?? "");
+      console.log(format({ level: "info", tag, msg, data }));
     },
     warn(msg: string, data?: Record<string, unknown>) {
-      console.warn(`[${tag}]`, msg, data ?? "");
+      console.warn(format({ level: "warn", tag, msg, data }));
     },
-    error(msg: string, data?: Record<string, unknown>) {
-      console.error(`[${tag}]`, msg, data ?? "");
+    error(msg: string, err?: Error | Record<string, unknown>) {
+      const data = err instanceof Error
+        ? { message: err.message, stack: err.stack }
+        : err;
+      console.error(format({ level: "error", tag, msg, data }));
     },
   };
 }

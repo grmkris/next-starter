@@ -1,4 +1,4 @@
-import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
 
 import {
   type AccountId,
@@ -25,7 +25,7 @@ export const user = pgTable("user", {
   role: text("role").default("user").notNull(),
   banned: boolean("banned").default(false),
   banReason: text("ban_reason"),
-  banExpires: timestamp("ban_expires"),
+  banExpires: createTimestampField("ban_expires"),
 });
 
 export const session = pgTable(
@@ -84,10 +84,7 @@ export const verification = pgTable(
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
     expiresAt: createTimestampField("expires_at").notNull(),
-    createdAt: createTimestampField("created_at").$defaultFn(() => new Date()),
-    updatedAt: createTimestampField("updated_at")
-      .$defaultFn(() => new Date())
-      .$onUpdateFn(() => new Date()),
+    ...baseEntityFields,
   },
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 );

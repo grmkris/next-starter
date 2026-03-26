@@ -24,32 +24,32 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-
-    const result = await signIn.email({ email, password });
-
-    if (result.error) {
-      setError(result.error.message ?? "Login failed");
+    try {
+      const result = await signIn.email({ email, password });
+      if (result.error) {
+        setError(result.error.message ?? "Login failed");
+        return;
+      }
+      router.push("/");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    router.push("/");
   }
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
-    const result = await signUp.email({ name, email, password });
-
-    if (result.error) {
-      setError(result.error.message ?? "Registration failed");
+    try {
+      const result = await signUp.email({ name, email, password });
+      if (result.error) {
+        setError(result.error.message ?? "Registration failed");
+        return;
+      }
+      router.push("/");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    router.push("/");
   }
 
   return (

@@ -13,6 +13,8 @@ export function createDb(props: {
 }): Database {
   const pool = new pg.Pool({
     connectionString: props.databaseUrl,
+    max: 20,
+    idleTimeoutMillis: 30000,
   });
   return drizzle(pool, {
     schema: DB_SCHEMA,

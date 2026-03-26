@@ -1,6 +1,6 @@
 import { ORPCError, os } from "@orpc/server";
 
-import type { UserId } from "@/lib/typeid";
+import { UserId } from "@/lib/typeid";
 
 import type { Context } from "./context";
 
@@ -15,7 +15,7 @@ const requireAuth = o.middleware(({ context, next }) => {
   return next({
     context: {
       session: context.session,
-      userId: context.session.user.id as UserId,
+      userId: UserId.parse(context.session.user.id),
     },
   });
 });
